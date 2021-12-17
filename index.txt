@@ -8,6 +8,6 @@
 	</head>
 	<body>
 		<h2 id="main">My Awesome Website</h2>
-		<script type="text/javasript" src="sketch.js"></script>
+		<script src="sketch.js"></script>
 	</body>
 </html>
