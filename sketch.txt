@@ -1,3 +1,7 @@
+function fullScreen() {
+	createCanvas(windowWidth, windowHeight);
+}
+
 function setup() {
 	fullScreen();
 }
