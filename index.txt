@@ -7,8 +7,8 @@
 		<meta charset="utf-8" />
 	</head>
 	<body>
+		<a class="hyperlink" href="raymarching.html">See My RayMarching Project</a>
 		<h2 id="main">My Awesome Website</h2>
-		<a href="raymarching.html">See My RayMarching Project</a>
 		<script src="sketch.js"></script>
 	</body>
 </html>

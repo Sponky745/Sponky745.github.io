@@ -1,4 +1,16 @@
-h2 {
+#main {
+	margin: auto;
+	text-align: center;
+	font-family: Arial;
+	color: white;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.hyperlink {
 	margin: auto;
 	text-align: center;
 	font-family: Arial;
