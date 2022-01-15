@@ -1,11 +1,7 @@
 let pos;
 
-function fullScreen() {
-	createCanvas(windowWidth, windowHeight);
-}
-
 function setup() {
-	fullScreen();
+	createCanvas(windowWidth - 400, windowHeight);
 	pos = createVector(width/2, height/2);
 }
 

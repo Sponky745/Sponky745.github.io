@@ -19,7 +19,12 @@
 	-webkit-user-select: none;
 	-webkit-touch-callout: none;
 	-moz-user-select: none;
-	-ms-user-select: none;	
+	-ms-user-select: none;
+}
+
+canvas {
+	display: block;
+	margin: 0 auto;
 }
 
 body {
