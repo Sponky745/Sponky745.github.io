@@ -8,7 +8,7 @@ const friction = 0;
 
 function setup() {
   createCanvas(windowWidth - 400, windowHeight);
-  //noCursor();
+  noCursor();
   w = width * 10;
   TOTAL = w / spacing;
 
