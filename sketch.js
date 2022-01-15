@@ -1,7 +1,7 @@
 let pos;
 
 function setup() {
-	createCanvas(windowWidth - 400, windowHeight);
+	createCanvas(windowWidth, windowHeight);
 	pos = createVector(width/2, height/2);
 }
 

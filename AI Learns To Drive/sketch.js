@@ -7,7 +7,7 @@ let walls = [];
 const friction = 0;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth - 400, windowHeight);
   //noCursor();
   w = width * 10;
   TOTAL = w / spacing;
