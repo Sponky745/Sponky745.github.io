@@ -15,6 +15,8 @@
 	text-align: center;
 	font-family: Arial;
 	color: white;
+	margin: 0 auto;
+	display: block;
 	user-select: none;
 	-webkit-user-select: none;
 	-webkit-touch-callout: none;
