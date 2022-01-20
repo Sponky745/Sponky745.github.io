@@ -73,8 +73,8 @@ function draw() {
         let force = p5.Vector.sub(other.pos, particle.pos);
         let x = force.mag();
         force.setMag(-1 * 0.5 * x);
-        particle.applyForce(p5.Vector.div(force, 1));
-        // other.applyForce(p5.Vector.div(force, -2));
+        particle.applyForce(p5.Vector.div(force, 2));
+        other.applyForce(p5.Vector.div(force, -2));
 
         if (BallvsBall(particle, other)) {
           penResBB(particle, other);
