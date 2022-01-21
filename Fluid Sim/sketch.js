@@ -3,10 +3,11 @@ const ClickType = {
   Add: 1
 };
 
-const spacing = 16;
+const spacing = 20;
 const viscosity = 250;
 const friction = 0.05;
 const drag = 0.025;
+const maxspeed = 10;
 
 let click = ClickType.Move;
 let gravity;
@@ -72,12 +73,14 @@ function draw() {
       if (other !== particle && d < spacing + 4) {
         let force = p5.Vector.sub(other.pos, particle.pos);
         let x = force.mag();
-        force.setMag(-1 * 0.5 * x);
+        force.setMag(-1 * 0.4 * x);
         particle.applyForce(p5.Vector.div(force, 2));
         other.applyForce(p5.Vector.div(force, -2));
 
         if (BallvsBall(particle, other)) {
           penResBB(particle, other);
+          collResBB(particle, other);
+          particle.vel.mult(0.99);
         }
       }
     }
@@ -86,14 +89,19 @@ function draw() {
       let mouse = createVector(mouseX, mouseY);
       if (p5.Vector.dist(particle.pos, mouse) < viscosity) {
         let force = p5.Vector.sub(mouse, particle.pos);
-        let x = force.mag();
-        force.setMag(0.01 * x);
+        let dsquared = force.magSq();
+        dsquared = constrain(dsquared, 255, 400);
+        const G = 100000;
+        let str = G / dsquared;
+        force.setMag(str);
         particle.applyForce(force);
       }
     }
 
     particle.vel.x *= (1 - friction);
     particle.vel.y *= (1 - drag);
+    particle.vel.x = constrain(particle.vel.x, -maxspeed, maxspeed);
+    particle.vel.y = (particle.vel.y < -maxspeed) ? -maxspeed : particle.vel.y;
     particle.update();
   }
 
