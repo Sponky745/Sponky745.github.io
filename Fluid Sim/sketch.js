@@ -91,7 +91,7 @@ function draw() {
         let force = p5.Vector.sub(mouse, particle.pos);
         let dsquared = force.magSq();
         dsquared = constrain(dsquared, 255, 400);
-        const G = 100000;
+        const G = 1000;
         let str = G / dsquared;
         force.setMag(str);
         particle.applyForce(force);
