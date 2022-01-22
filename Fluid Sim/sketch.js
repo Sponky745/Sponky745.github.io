@@ -15,7 +15,7 @@ let particles = [];
 let showDebug = true;
 
 function setup() {
-  createCanvas(windowWidth-400, windowHeight);
+  createCanvas(windowWidth-400, windowHeight-100);
   gravity = createVector(0, 0.6);
 
 
