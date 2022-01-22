@@ -150,5 +150,9 @@ function keyPressed() {
     case "d":
       showDebug = !showDebug;
       break;
+    case "C":
+    case "c":
+      particles = [];
+      break;
   }
 }
