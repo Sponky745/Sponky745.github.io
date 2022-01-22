@@ -12,6 +12,7 @@ const maxspeed = 10;
 let click = ClickType.Move;
 let gravity;
 let particles = [];
+let showDebug = true;
 
 function setup() {
   createCanvas(windowWidth-400, windowHeight);
@@ -28,7 +29,11 @@ function setup() {
 function draw() {
   background(51);
 
+  let boundary = new Rectangle(width/2, height/2, width, height);
+  let qt = new QuadTree(boundary, 4);
+
   fill(255);
+  noStroke();
   textAlign(LEFT, CENTER);
   textSize(35);
   switch (click) {
@@ -42,9 +47,18 @@ function draw() {
       text("Click Type: None", 50, 50);
   }
 
+  if (showDebug) {
+    text("Show Debug: True", 50, 100);
+  } else {
+    text("Show Debug: False", 50, 100);
+  }
+
   for (let particle of particles) {
     particle.applyForce(gravity);
     particle.show();
+    let point = new Point(particle.pos.x, particle.pos.y, particle);
+    qt.insert(point);
+
     if (particle.pos.y > height - particle.r) {
       particle.vel.y *= -1;
       particle.vel.y *= 0.99;
@@ -68,7 +82,17 @@ function draw() {
       particle.pos.x = width - particle.r;
     }
 
-    for (let other of particles) {
+    particle.vel.x *= (1 - friction);
+    particle.vel.y *= (1 - drag);
+    particle.vel.x = constrain(particle.vel.x, -maxspeed, maxspeed);
+    particle.vel.y = (particle.vel.y < -maxspeed) ? -maxspeed : particle.vel.y;
+    particle.update();
+
+    let circle = new Circle(particle.pos.x, particle.pos.y, spacing + 4);
+    let others = qt.query(circle);
+
+    for (let p of others) {
+      let other = p.userData;
       let d = p5.Vector.dist(other.pos, particle.pos);
       if (other !== particle && d < spacing + 4) {
         let force = p5.Vector.sub(other.pos, particle.pos);
@@ -97,18 +121,17 @@ function draw() {
         particle.applyForce(force);
       }
     }
-
-    particle.vel.x *= (1 - friction);
-    particle.vel.y *= (1 - drag);
-    particle.vel.x = constrain(particle.vel.x, -maxspeed, maxspeed);
-    particle.vel.y = (particle.vel.y < -maxspeed) ? -maxspeed : particle.vel.y;
-    particle.update();
   }
 
   if (mouseIsPressed && click == ClickType.Add) {
     particles.push(new Particle(mouseX + random(-16, 16), mouseY + random(-16, 16)));
   }
+
+  if (showDebug) {
+    qt.show();
+  }
 }
+
 
 function keyPressed() {
   switch (keyCode) {
@@ -119,6 +142,13 @@ function keyPressed() {
       break;
     case RIGHT_ARROW:
       click++;
+      break;
+  }
+
+  switch (key) {
+    case "D":
+    case "d":
+      showDebug = !showDebug;
       break;
   }
 }
