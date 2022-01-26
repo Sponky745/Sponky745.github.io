@@ -24,6 +24,11 @@
 	-ms-user-select: none;
 }
 
+#href-container {
+	display: inline;
+	margin: 0 auto;
+}
+
 canvas {
 	display: block;
 	margin: 0 auto;
