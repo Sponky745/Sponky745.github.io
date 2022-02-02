@@ -21,7 +21,21 @@ function draw() {
   background(51);
   world.update();
 
+  fill(255);
+  noStroke();
+  textAlign(LEFT, CENTER);
+  textSize(35);
 
+  switch (click) {
+    case ClickType.Ball:
+      text("Click Type: Ball", 50, 50);
+      break;
+    case ClickType.Square:
+      text("Click Type: Rectangle", 50, 50);
+      break;
+    default:
+      text("Click Type: None", 50, 50);
+  }
 
   if (mouseIsPressed && click == ClickType.Move) {
     let record = Infinity;
@@ -58,6 +72,9 @@ function keyPressed() {
   switch (keyCode) {
     case RIGHT_ARROW:
       click++;
+      break;
+      case LEFT_ARROW:
+      click--;
   }
 }
 
