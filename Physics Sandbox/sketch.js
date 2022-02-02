@@ -14,7 +14,7 @@ function setup() {
 
 
   world = new World({ G: 981, gravity: createVector(0, 0.3), friction: 0.1, drag: 0.01 });
-  let ground = new Rectangle(width/2, height - 32, width, 32, staticMass);
+  let ground = new Rectangle(width/2, height - 16, width, 32, staticMass);
 }
 
 function draw() {
