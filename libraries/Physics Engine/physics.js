@@ -204,7 +204,7 @@ function penResRB(r1, b1, bounce) {
   }
   if (b1.body.mass < staticMass) {
     b1.body.pos.add(normal);
-    // console.log(b1.body.vel);
+    b1.body.vel.mult(-1);
   }
 }
 
