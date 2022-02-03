@@ -322,7 +322,7 @@ class CircleCollider {
     if (other instanceof CircleCollider) {
       if (BallvsBall(this, other)) {
         penResBB(this, other);
-        // collResBB(this, other);
+        collResBB(this, other);
         this.body.vel.mult(0.95);
       }
     } else if (other instanceof RectCollider) {
