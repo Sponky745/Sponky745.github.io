@@ -1,5 +1,9 @@
 const Time = {
-  delta: 1
+  prev: new Date().getSeconds(),
+  now: function() {
+    return new Date().getSeconds()
+  },
+  delta: 1,
 };
 
 const staticMass = Number.MAX_VALUE;
@@ -247,6 +251,8 @@ class World {
   constructor(options) {
     this.objects = [];
     this.colliders = [];
+
+
     this.G = (options.G !== undefined) ? options.G : 9.81;
     this.gravity = (options.gravity !== undefined) ? options.gravity.copy() : new Vec2(0, 0.3);
     friction = (options.friction !== undefined) ? options.friction : 0;
@@ -255,6 +261,8 @@ class World {
   }
 
   update() {
+
+
     for (let coll of this.colliders) {
       for (let other of this.colliders) {
         if (coll !== other) {
@@ -275,6 +283,8 @@ class World {
       this.objects.push(obj);
     } else if (obj instanceof CircleCollider || obj instanceof RectCollider) {
       this.colliders.push(obj);
+    } else if (obj instanceof SpringJoint) {
+      this.joints.push(obj);
     }
   }
 }
@@ -322,7 +332,7 @@ class CircleCollider {
     if (other instanceof CircleCollider) {
       if (BallvsBall(this, other)) {
         penResBB(this, other);
-        collResBB(this, other);
+        // collResBB(this, other);
         this.body.vel.mult(0.95);
       }
     } else if (other instanceof RectCollider) {
@@ -359,5 +369,23 @@ class Body {
     this.acc.set(0, 0);
     this.vel.x *= 1 - friction;
     this.vel.y *= 1 - drag;
+  }
+}
+
+class SpringJoint {
+  constructor(a, b, options) {
+    this.a = a;
+    this.b = b;
+    this.k = 0.5;
+    this.restLength = Vec2.dist(a.pos, b.pos);
+  }
+
+  update() {
+    let force = Vec2.sub(b.pos, a.pos);
+    let x = force.mag();
+    force.normalize();
+    force.mult(-this.k);
+    force.mult(x);
+    a.applyForce(force);
   }
 }
