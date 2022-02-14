@@ -110,10 +110,17 @@ class Cart {
       fill(0, 255, 0, 50);
     }
 
+    let v1 = p5.Vector.sub(this.wheels[1].pos, this.wheels[0].pos);
+    let v2 = createVector(1, 0);
+
+    let angle = v1.angleBetween(v2);
+
+    let dx = this.h * -sin(angle);
+
     beginShape();
     vertex(this.pos.x-this.w/2, this.wheels[0].pos.y);
-    vertex(this.pos.x-this.w/2, this.wheels[0].pos.y - this.h);
-    vertex(this.pos.x+this.w/2, this.wheels[1].pos.y - this.h);
+    vertex(this.pos.x-this.w/2 + dx, this.wheels[0].pos.y - this.h);
+    vertex(this.pos.x+this.w/2 + dx, this.wheels[1].pos.y - this.h);
     vertex(this.pos.x+this.w/2, this.wheels[1].pos.y);
     endShape();
 
