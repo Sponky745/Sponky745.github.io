@@ -1,27 +1,29 @@
 const ClickType = {
   Move: 0,
-  Add: 1
+  Add: 1,
+  Solute: 2,
 };
 
 const spacing = 20;
 const viscosity = 250;
-const friction = 0.05;
-const drag = 0.025;
+const friction = 0;
+const drag = 0;
 const maxspeed = 10;
 
 let click = ClickType.Move;
 let gravity;
 let particles = [];
-let showDebug = true;
+let showDebug = false;
 
 function setup() {
-  createCanvas(windowWidth-400, windowHeight-100);
+  createCanvas(windowWidth-400, windowHeight);
   gravity = createVector(0, 0.6);
 
 
-  for (let y = height/2; y < height/2 + 200; y += spacing) {
+  for (let y = height/2 - 200; y < height/2 + 200; y += spacing) {
     for (let x = width/2 - 100; x < width/2 + 100; x += spacing) {
-      particles.push(new Particle(x, y))
+      particles.push(new Particle(x + random(-15, 15), y));
+      particles.push(new Particle(x + random(-15, 15), y));
     }
   }
 }
@@ -43,6 +45,9 @@ function draw() {
     case ClickType.Add:
       text("Click Type: Add", 50, 50);
       break;
+    case ClickType.Solute:
+      text("Click Type: Add Solute", 50, 50);
+      break;
     default:
       text("Click Type: None", 50, 50);
   }
@@ -53,7 +58,8 @@ function draw() {
     text("Show Debug: False", 50, 100);
   }
 
-  for (let particle of particles) {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const particle = particles[i];
     particle.applyForce(gravity);
     particle.show();
     let point = new Point(particle.pos.x, particle.pos.y, particle);
@@ -98,8 +104,8 @@ function draw() {
         let force = p5.Vector.sub(other.pos, particle.pos);
         let x = force.mag();
         force.setMag(-1 * 0.4 * x);
-        particle.applyForce(p5.Vector.div(force, 2));
-        other.applyForce(p5.Vector.div(force, -2));
+        // particle.applyForce(p5.Vector.div(force, 2));
+        // other.applyForce(p5.Vector.div(force, -2));
 
         if (BallvsBall(particle, other)) {
           penResBB(particle, other);
@@ -122,9 +128,10 @@ function draw() {
       }
     }
   }
-
   if (mouseIsPressed && click == ClickType.Add) {
     particles.push(new Particle(mouseX + random(-16, 16), mouseY + random(-16, 16)));
+  } else if (mouseIsPressed && click == ClickType.Solute) {
+    particles.push(new Particle(mouseX + random(-16, 16), mouseY + random(-16, 16), true));
   }
 
   if (showDebug) {
@@ -152,7 +159,6 @@ function keyPressed() {
       break;
     case "C":
     case "c":
-      particles = [];
-      break;
+      particles.length = 0;
   }
 }

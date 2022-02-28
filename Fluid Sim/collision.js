@@ -2,7 +2,7 @@ function collResBB(b1, b2) {
   let normal = p5.Vector.sub(b1.pos, b2.pos).normalize();
   let relVel = p5.Vector.sub(b1.vel, b2.vel);
   let sepVel = p5.Vector.dot(relVel, normal);
-  let new_sepVel = -sepVel;
+  let new_sepVel = -sepVel * 0.001;
   let sepVelVec = p5.Vector.mult(normal, new_sepVel);
 
   let vsepDiff = new_sepVel - sepVel;
