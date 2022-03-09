@@ -34,7 +34,7 @@ class Wheel {
   }
 
   show() {
-    fill(0, 50);
+    fill(255, 50);
     stroke(0);
     circle(this.pos.x, this.pos.y, this.r * 2);
   }
@@ -47,7 +47,7 @@ class Wall {
   }
 
   show() {
-    stroke(0);
+    stroke(255);
     line(this.a.x, this.a.y, this.b.x, this.b.y)
   }
 

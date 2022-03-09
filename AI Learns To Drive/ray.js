@@ -45,7 +45,7 @@ class Ray {
          const pt = createVector();
          pt.x = x1 + t * (x2-x1);
          pt.y = y1 + t * (y2-y1);
-         line(this.pos.x, this.pos.y, pt.x, pt.y);
+         // line(this.pos.x, this.pos.y, pt.x, pt.y);
          return (p5.Vector.dist(this.pos, pt) < 50) ? p5.Vector.dist(this.pos, pt) : 0;
       }
     }

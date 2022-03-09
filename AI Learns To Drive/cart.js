@@ -102,7 +102,7 @@ class Cart {
     for (let wheel of this.wheels) {
      wheel.show();
     }
-    fill(0, 50);
+    fill(255, 50);
     if (this.prevBest) {
       fill(0, 0, 255, 50);
     }
@@ -122,10 +122,9 @@ class Cart {
     vertex(this.pos.x-this.w/2 + dx, this.wheels[0].pos.y - this.h);
     vertex(this.pos.x+this.w/2 + dx, this.wheels[1].pos.y - this.h);
     vertex(this.pos.x+this.w/2, this.wheels[1].pos.y);
-    endShape();
+    endShape(CLOSE);
 
     for (let ray of this.rays) {
-      ray.show();
       ray.cast(walls);
     }
   }

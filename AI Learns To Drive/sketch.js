@@ -29,7 +29,7 @@ function setup() {
  }
 //
 function draw() {
-  background(220);
+  background(36);
   push();
   if (carts.getBest()) {
     translate(width/2, 0);
@@ -41,6 +41,7 @@ function draw() {
     wall.show();
   }
   pop();
+  fill(255);
   textSize(30);
   text("Step: " + carts.step, 50, 50);
   text("Gen: " + carts.gen, 50, 100);
